@@ -267,7 +267,7 @@
   }
 
   /* ── SECTIONS ── */
-  section { padding: 100px 24px; }
+  section { padding: 100px 24px; position: relative; }
 
   .section-inner {
     max-width: 800px;
@@ -366,6 +366,14 @@
     color: var(--white-dim);
     line-height: 1.6;
     margin-top: 8px;
+  }
+
+  .cabin-spots {
+    margin-top: 14px;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
   }
 
   /* ── RSVP ── */
@@ -484,7 +492,7 @@
     padding: 48px 24px;
   }
 
-  #rsvp-success .success-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+  #rsvp-success .success-icon { width: 26px; display: block; margin: 0 auto 20px; opacity: 0.55; }
 
   #rsvp-success h3 {
     font-family: 'Cormorant Garamond', serif;
@@ -501,15 +509,8 @@
     margin: 48px auto 0;
     width: 100%;
     max-width: 700px;
-    height: 280px;
     border: 1px solid var(--border-g);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-card);
-    font-size: 0.8rem;
-    color: var(--white-dim);
-    letter-spacing: 0.1em;
+    overflow: hidden;
   }
 
   .venue-address {
@@ -576,6 +577,24 @@
   }
 
   /* ── RESPONSIVE ── */
+  /* ── OAK LEAF MARGIN DECORATION ── */
+  .oak-leaf {
+    position: absolute;
+    width: 190px;
+    opacity: 0.09;
+    pointer-events: none;
+    user-select: none;
+    top: 50%;
+  }
+  .oak-leaf--left {
+    left: 10px;
+    transform: translateY(-50%) rotate(-16deg);
+  }
+  .oak-leaf--right {
+    right: 10px;
+    transform: translateY(-50%) rotate(16deg) scaleX(-1);
+  }
+
   @media (max-width: 600px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
@@ -586,6 +605,7 @@
     .gallery-featured { aspect-ratio: 16 / 9; }
     .att-row { flex-wrap: wrap; }
     .hero::after { left: 16px; right: 16px; }
+    .oak-leaf { display: none; }
   }
 </style>
 </head>
@@ -648,6 +668,7 @@
 
 <!-- INTRO / VIBE -->
 <section id="story" class="bg-mid">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--left" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">Join Us</p>
@@ -668,6 +689,7 @@
 
 <!-- DETAILS -->
 <section id="details">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">Wedding Details</p>
@@ -676,22 +698,18 @@
 
     <div class="details-grid">
       <div class="detail-card">
-        <span class="detail-icon">🕐</span>
         <p class="detail-title">Ceremony</p>
         <p class="detail-text">3:00 pm<br><span class="detail-sub">Please arrive by 2:45 pm</span></p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">🥂</span>
         <p class="detail-title">Reception</p>
         <p class="detail-text">5:00 pm<br><span class="detail-sub">Dinner & dancing follow</span></p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">👗</span>
         <p class="detail-title">Dress Code</p>
         <p class="detail-text">Garden formal<br><span class="detail-sub">Earthy tones welcomed</span></p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">🌿</span>
         <p class="detail-title">Setting</p>
         <p class="detail-text">Outdoor ceremony<br><span class="detail-sub">Weather permitting</span></p>
       </div>
@@ -701,6 +719,7 @@
 
 <!-- VENUE -->
 <section id="venue" class="bg-mid">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--left" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">The Venue</p>
@@ -712,18 +731,30 @@
       built around roots, water, and belonging.
     </p>
     <div class="venue-map">
-      <a href="https://maps.google.com/?q=38+Viru+Ave+Udora+ON+L0C+1L0" target="_blank"
-         style="color:var(--white-soft);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:10px">
-        <span style="font-size:1.5rem">📍</span>
-        Open in Google Maps
-      </a>
+      <iframe
+        src="https://maps.google.com/maps?q=38+Viru+Ave,+Udora,+ON,+Canada&output=embed&z=14"
+        width="100%"
+        height="300"
+        style="display:block;border:0;filter:grayscale(25%)contrast(1.05)"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Jõekääru — 38 Viru Ave, Udora, ON"
+      ></iframe>
     </div>
     <p class="venue-address">38 Viru Ave<br>Udora, ON&nbsp; L0C 1L0</p>
+    <p style="margin-top:16px">
+      <a href="https://maps.google.com/?q=38+Viru+Ave+Udora+ON+L0C+1L0" target="_blank"
+         style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--leaf);text-decoration:none">
+        Open in Google Maps &rarr;
+      </a>
+    </p>
   </div>
 </section>
 
 <!-- ACCOMMODATIONS -->
 <section id="accommodations">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">Accommodations</p>
@@ -735,25 +766,22 @@
     </p>
     <div class="details-grid">
       <div class="detail-card">
-        <span class="detail-icon">🏕️</span>
         <p class="detail-title">Camping on Site</p>
         <p class="detail-text">Bring your tent</p>
         <p class="detail-desc">Stay right at Jõekääru. Fall asleep to the river and wake up to the trees.</p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">🪵</span>
         <p class="detail-title">Cabins</p>
         <p class="detail-text">Limited availability</p>
-        <p class="detail-desc">A small number of cabins are available on site. Mention your interest in your RSVP — first come, first served.</p>
+        <p class="detail-desc">Mention your interest in your RSVP — first come, first served.</p>
+        <p class="cabin-spots" id="cabin-spots" style="display:none"><span id="cabin-count"></span> spots remaining</p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">🏨</span>
         <p class="detail-title">Nearby Hotels</p>
         <p class="detail-text">Sutton &amp; Uxbridge</p>
         <p class="detail-desc">Both towns are roughly 20 minutes from the venue and offer hotels and B&amp;B options.</p>
       </div>
       <div class="detail-card">
-        <span class="detail-icon">🚗</span>
         <p class="detail-title">Getting There</p>
         <p class="detail-text">~1 hour from Toronto</p>
         <p class="detail-desc">Take Hwy 404 north to Hwy 48 east toward Udora. Detailed directions will follow with your invitation.</p>
@@ -764,6 +792,7 @@
 
 <!-- GALLERY -->
 <section id="gallery">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--left" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">Photos</p>
@@ -786,6 +815,7 @@
 
 <!-- RSVP -->
 <section id="rsvp" class="rsvp-bg">
+  <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
   <div class="section-inner">
     <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
     <p class="section-tag">RSVP</p>
@@ -811,7 +841,7 @@
 
     <!-- Email not on guest list -->
     <div id="lookup-not-found" style="display:none;text-align:center;padding:48px 24px;">
-      <span style="font-size:2rem;display:block;margin-bottom:20px">🌿</span>
+      <img src="Images/Elements/maple leaf.png" style="width:26px;opacity:0.55;display:block;margin:0 auto 20px" alt="" aria-hidden="true"/>
       <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
         Hmm, we couldn't find that email
       </h3>
@@ -827,7 +857,7 @@
 
     <!-- Already submitted an RSVP -->
     <div id="lookup-already-rsvped" style="display:none;text-align:center;padding:48px 24px;">
-      <span style="font-size:2rem;display:block;margin-bottom:20px">🌿</span>
+      <img src="Images/Elements/maple leaf.png" style="width:26px;opacity:0.55;display:block;margin:0 auto 20px" alt="" aria-hidden="true"/>
       <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
         We already have your RSVP!
       </h3>
@@ -940,7 +970,7 @@
     </form>
 
     <div id="rsvp-success">
-      <span class="success-icon">🌿</span>
+      <img src="Images/Elements/maple leaf.png" class="success-icon" alt="" aria-hidden="true"/>
       <h3>Thank you!</h3>
       <p id="rsvp-success-text">Your RSVP has been received.<br>We look forward to celebrating with you.</p>
     </div>
@@ -968,7 +998,7 @@
 
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML =
-        '<p style="font-family:Cormorant Garamond,serif;font-size:1.5rem;color:var(--gold)">Today is the day! 🌿</p>';
+        '<p style="font-family:Cormorant Garamond,serif;font-size:1.5rem;color:var(--gold)">Today is the day!</p>';
       return;
     }
 
@@ -1004,7 +1034,8 @@
 
   // ── Invite-only RSVP system ──
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec';
-  let currentInvite = null;
+  let currentInvite  = null;
+  let cabinAvailable = null; // set on page load; null = unknown
 
   function show(id) { document.getElementById(id).style.display = 'block'; }
   function hide(id) { document.getElementById(id).style.display = 'none'; }
@@ -1067,6 +1098,18 @@
       }
     }
 
+    // Disable cabin option if fully booked
+    const cabinOpt = document.querySelector('select[name="accommodation"] option[value="cabin"]');
+    if (cabinOpt) {
+      if (cabinAvailable !== null && cabinAvailable <= 0) {
+        cabinOpt.disabled    = true;
+        cabinOpt.textContent = 'Cabin (fully booked)';
+      } else {
+        cabinOpt.disabled    = false;
+        cabinOpt.textContent = 'Cabin';
+      }
+    }
+
     if (isUpdate) {
       document.getElementById('rsvp-submit-btn').textContent = 'Update My RSVP';
     }
@@ -1100,6 +1143,20 @@
   document.getElementById('lookup-email').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') { e.preventDefault(); lookupInvite(); }
   });
+
+  // ── Cabin availability (fetched once on load) ──
+  (async function() {
+    try {
+      const res  = await fetch(SCRIPT_URL + '?action=cabin-count');
+      const data = await res.json();
+      if (typeof data.available === 'number') {
+        cabinAvailable = data.available;
+        document.getElementById('cabin-count').textContent =
+          data.available + ' of ' + data.total;
+        document.getElementById('cabin-spots').style.display = 'block';
+      }
+    } catch { /* silently fail — counter stays hidden */ }
+  })();
 
   // ── Form submission (Google Apps Script) ──
   document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
