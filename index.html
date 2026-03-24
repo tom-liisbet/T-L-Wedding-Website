@@ -321,8 +321,9 @@
 
   /* ── DETAILS ── */
   .details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1px;
     background: var(--border-g);
     border: 1px solid var(--border-g);
@@ -336,6 +337,8 @@
     background: var(--bg-card);
     padding: 40px 28px;
     text-align: center;
+    flex: 1 1 220px;
+    max-width: 350px;
   }
 
   .detail-icon {
@@ -817,14 +820,16 @@
 <section id="rsvp" class="rsvp-bg">
   <img src="Images/Elements/oak leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
   <div class="section-inner">
-    <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
-    <p class="section-tag">RSVP</p>
-    <h2 class="section-heading">Will you join us?</h2>
-    <div class="section-divider"></div>
-    <p class="section-body">
-      Kindly reply by <strong style="color:var(--gold-light)">July 5th, 2026</strong>.<br>
-      We can't wait to celebrate with you.
-    </p>
+    <div id="rsvp-header">
+      <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+      <p class="section-tag">RSVP</p>
+      <h2 class="section-heading">Will you join us?</h2>
+      <div class="section-divider"></div>
+      <p class="section-body">
+        Kindly reply by <strong style="color:var(--gold-light)">July 5th, 2026</strong>.<br>
+        We can't wait to celebrate with you.
+      </p>
+    </div>
 
     <!-- Step 1: Email lookup -->
     <div id="invite-lookup">
@@ -1122,6 +1127,7 @@
   }
 
   function showSuccessNoChange() {
+    hide('rsvp-header');
     hide('lookup-already-rsvped');
     document.getElementById('rsvp-success-text').innerHTML =
       "You're all set — we can't wait to see you.";
@@ -1174,6 +1180,7 @@
         mode:   'no-cors'
       });
 
+      hide('rsvp-header');
       hide('rsvp-form');
       show('rsvp-success');
     } catch {
