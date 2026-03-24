@@ -751,7 +751,7 @@
     <form
       id="rsvp-form"
       class="rsvp-form"
-      action="https://formspree.io/f/YOUR_FORM_ID"
+      action="https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec"
       method="POST"
     >
       <div class="form-grid">
@@ -900,7 +900,7 @@
     );
   }
 
-  // ── Form submission (Formspree) ──
+  // ── Form submission (Google Apps Script) ──
   document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('.submit-btn');
@@ -908,19 +908,15 @@
     btn.disabled = true;
 
     try {
-      const res = await fetch(this.action, {
+      // no-cors is required for Apps Script — response will be opaque but data lands in the sheet
+      await fetch(this.action, {
         method: 'POST',
-        body: new FormData(this),
-        headers: { 'Accept': 'application/json' }
+        body: new URLSearchParams(new FormData(this)),
+        mode: 'no-cors'
       });
 
-      if (res.ok) {
-        this.style.display = 'none';
-        document.getElementById('rsvp-success').style.display = 'block';
-      } else {
-        btn.textContent = 'Something went wrong — please try again';
-        btn.disabled = false;
-      }
+      this.style.display = 'none';
+      document.getElementById('rsvp-success').style.display = 'block';
     } catch {
       btn.textContent = 'Network error — please try again';
       btn.disabled = false;
