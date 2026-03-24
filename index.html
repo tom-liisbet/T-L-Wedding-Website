@@ -361,6 +361,13 @@
 
   .detail-sub { font-size: 0.9rem; color: var(--white-dim); }
 
+  .detail-desc {
+    font-size: 0.88rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
   /* ── RSVP ── */
   .rsvp-bg { background: var(--bg-rsvp); }
   .rsvp-bg .section-tag     { color: var(--leaf); }
@@ -591,6 +598,7 @@
     <li><a href="#story">The Day</a></li>
     <li><a href="#details">Details</a></li>
     <li><a href="#venue">Venue</a></li>
+    <li><a href="#accommodations">Stay</a></li>
     <li><a href="#gallery">Photos</a></li>
     <li><a href="#rsvp">RSVP</a></li>
   </ul>
@@ -714,6 +722,46 @@
   </div>
 </section>
 
+<!-- ACCOMMODATIONS -->
+<section id="accommodations">
+  <div class="section-inner">
+    <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+    <p class="section-tag">Accommodations</p>
+    <h2 class="section-heading">Where to stay</h2>
+    <div class="section-divider"></div>
+    <p class="section-body">
+      Jõekääru has limited on-site accommodation for those who want to stay close to the celebration.
+      Let us know your plans in your RSVP.
+    </p>
+    <div class="details-grid">
+      <div class="detail-card">
+        <span class="detail-icon">🏕️</span>
+        <p class="detail-title">Camping on Site</p>
+        <p class="detail-text">Bring your tent</p>
+        <p class="detail-desc">Stay right at Jõekääru. Fall asleep to the river and wake up to the trees.</p>
+      </div>
+      <div class="detail-card">
+        <span class="detail-icon">🪵</span>
+        <p class="detail-title">Cabins</p>
+        <p class="detail-text">Limited availability</p>
+        <p class="detail-desc">A small number of cabins are available on site. Mention your interest in your RSVP — first come, first served.</p>
+      </div>
+      <div class="detail-card">
+        <span class="detail-icon">🏨</span>
+        <p class="detail-title">Nearby Hotels</p>
+        <p class="detail-text">Sutton &amp; Uxbridge</p>
+        <p class="detail-desc">Both towns are roughly 20 minutes from the venue and offer hotels and B&amp;B options.</p>
+      </div>
+      <div class="detail-card">
+        <span class="detail-icon">🚗</span>
+        <p class="detail-title">Getting There</p>
+        <p class="detail-text">~1 hour from Toronto</p>
+        <p class="detail-desc">Take Hwy 404 north to Hwy 48 east toward Udora. Detailed directions will follow with your invitation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section id="gallery">
   <div class="section-inner">
@@ -748,12 +796,66 @@
       We can't wait to celebrate with you.
     </p>
 
+    <!-- Step 1: Email lookup -->
+    <div id="invite-lookup">
+      <div class="rsvp-form">
+        <div class="form-row">
+          <label>Your Email Address</label>
+          <input type="email" id="lookup-email" placeholder="your@email.com" autocomplete="email"/>
+        </div>
+        <button type="button" class="submit-btn" id="lookup-btn" onclick="lookupInvite()">
+          Check my invite
+        </button>
+      </div>
+    </div>
+
+    <!-- Email not on guest list -->
+    <div id="lookup-not-found" style="display:none;text-align:center;padding:48px 24px;">
+      <span style="font-size:2rem;display:block;margin-bottom:20px">🌿</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
+        Hmm, we couldn't find that email
+      </h3>
+      <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7;margin-bottom:28px">
+        This is an invite-only celebration. If you think this is a mistake,<br>
+        please get in touch with Tom or Liisbet directly.
+      </p>
+      <button type="button" class="att-btn" onclick="resetToLookup()"
+        style="max-width:260px;margin:0 auto;display:block">
+        ← Try a different email
+      </button>
+    </div>
+
+    <!-- Already submitted an RSVP -->
+    <div id="lookup-already-rsvped" style="display:none;text-align:center;padding:48px 24px;">
+      <span style="font-size:2rem;display:block;margin-bottom:20px">🌿</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
+        We already have your RSVP!
+      </h3>
+      <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7;margin-bottom:28px">
+        <strong id="already-guest-name" style="color:var(--gold-light)"></strong>, you're already on the list.<br>
+        Would you like to update your response?
+      </p>
+      <div class="att-row" style="max-width:380px;margin:0 auto;justify-content:center">
+        <button type="button" class="att-btn" onclick="proceedWithUpdate()">Yes, update it</button>
+        <button type="button" class="att-btn" onclick="showSuccessNoChange()">No, I'm all set</button>
+      </div>
+    </div>
+
+    <!-- RSVP Form (revealed after successful lookup) -->
     <form
       id="rsvp-form"
       class="rsvp-form"
       action="https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec"
       method="POST"
+      style="display:none"
     >
+      <!-- Invite tracking -->
+      <input type="hidden" name="invite_id" id="invite-id-val" value=""/>
+      <input type="hidden" name="is_update" id="is-update-val" value="false"/>
+
+      <!-- Personalised greeting -->
+      <p id="invite-greeting" style="display:none;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--gold-light);margin-bottom:28px"></p>
+
       <div class="form-grid">
         <div class="form-row">
           <label>First Name</label>
@@ -834,13 +936,13 @@
         <textarea name="message" placeholder="Share a note, well wishes, or let us know if you're bringing Moki a treat…"></textarea>
       </div>
 
-      <button type="submit" class="submit-btn">Send My RSVP</button>
+      <button type="submit" class="submit-btn" id="rsvp-submit-btn">Send My RSVP</button>
     </form>
 
     <div id="rsvp-success">
       <span class="success-icon">🌿</span>
       <h3>Thank you!</h3>
-      <p>Your RSVP has been received.<br>We look forward to celebrating with you.</p>
+      <p id="rsvp-success-text">Your RSVP has been received.<br>We look forward to celebrating with you.</p>
     </div>
   </div>
 </section>
@@ -900,26 +1002,126 @@
     );
   }
 
-  // ── Form submission (Google Apps Script) ──
-  document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('.submit-btn');
-    btn.textContent = 'Sending…';
+  // ── Invite-only RSVP system ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec';
+  let currentInvite = null;
+
+  function show(id) { document.getElementById(id).style.display = 'block'; }
+  function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+  async function lookupInvite() {
+    const email = document.getElementById('lookup-email').value.trim();
+    if (!email) return;
+
+    const btn = document.getElementById('lookup-btn');
+    btn.textContent = 'Checking…';
     btn.disabled = true;
 
     try {
-      // no-cors is required for Apps Script — response will be opaque but data lands in the sheet
+      const res  = await fetch(SCRIPT_URL + '?action=lookup&email=' + encodeURIComponent(email));
+      const data = await res.json();
+
+      if (!data.found) {
+        hide('invite-lookup');
+        show('lookup-not-found');
+      } else if (data.alreadyRsvped) {
+        currentInvite = data;
+        document.getElementById('already-guest-name').textContent = data.guestNames || 'friend';
+        hide('invite-lookup');
+        show('lookup-already-rsvped');
+      } else {
+        currentInvite = data;
+        revealForm(false);
+      }
+    } catch {
+      btn.textContent = 'Could not connect — please try again';
+      btn.disabled = false;
+    }
+  }
+
+  function revealForm(isUpdate) {
+    hide('invite-lookup');
+    hide('lookup-already-rsvped');
+
+    document.getElementById('invite-id-val').value  = currentInvite ? currentInvite.inviteId  : '';
+    document.getElementById('is-update-val').value  = isUpdate ? 'true' : 'false';
+
+    // Personalised greeting
+    if (currentInvite && currentInvite.guestNames) {
+      const greet = document.getElementById('invite-greeting');
+      greet.textContent  = 'Welcome, ' + currentInvite.guestNames + '!';
+      greet.style.display = 'block';
+    }
+
+    // Cap guests dropdown to the number on this invite
+    if (currentInvite && currentInvite.maxGuests) {
+      const sel = document.querySelector('select[name="guests"]');
+      Array.from(sel.options).forEach(opt => {
+        if (parseInt(opt.value) > parseInt(currentInvite.maxGuests)) {
+          opt.disabled = true;
+          opt.hidden   = true;
+        }
+      });
+      if (parseInt(sel.value) > parseInt(currentInvite.maxGuests)) {
+        sel.value = String(currentInvite.maxGuests);
+      }
+    }
+
+    if (isUpdate) {
+      document.getElementById('rsvp-submit-btn').textContent = 'Update My RSVP';
+    }
+
+    show('rsvp-form');
+  }
+
+  function proceedWithUpdate() {
+    revealForm(true);
+  }
+
+  function showSuccessNoChange() {
+    hide('lookup-already-rsvped');
+    document.getElementById('rsvp-success-text').innerHTML =
+      "You're all set — we can't wait to see you.";
+    show('rsvp-success');
+  }
+
+  function resetToLookup() {
+    currentInvite = null;
+    hide('lookup-not-found');
+    hide('lookup-already-rsvped');
+    hide('rsvp-form');
+    document.getElementById('lookup-email').value = '';
+    const btn = document.getElementById('lookup-btn');
+    btn.textContent = 'Check my invite';
+    btn.disabled    = false;
+    show('invite-lookup');
+  }
+
+  document.getElementById('lookup-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); lookupInvite(); }
+  });
+
+  // ── Form submission (Google Apps Script) ──
+  document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn     = document.getElementById('rsvp-submit-btn');
+    const origTxt = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      // no-cors required for Apps Script POST — response is opaque but data lands in the sheet
       await fetch(this.action, {
         method: 'POST',
-        body: new URLSearchParams(new FormData(this)),
-        mode: 'no-cors'
+        body:   new URLSearchParams(new FormData(this)),
+        mode:   'no-cors'
       });
 
-      this.style.display = 'none';
-      document.getElementById('rsvp-success').style.display = 'block';
+      hide('rsvp-form');
+      show('rsvp-success');
     } catch {
-      btn.textContent = 'Network error — please try again';
-      btn.disabled = false;
+      btn.textContent = origTxt;
+      btn.disabled    = false;
     }
   });
 </script>
