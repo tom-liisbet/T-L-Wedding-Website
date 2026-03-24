@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Read(//c/Wedding/Tom & Liisbet Wedding Website/**)",
+      "Bash(ls:*)",
+      "Read(//c/Users/stmok/Downloads/**)",
+      "Bash(dir \"c:\\\\Wedding\\\\Tom & Liisbet Wedding Website\\\\Images\\\\Photos\")",
+      "Bash(dir \"c:\\\\Wedding\\\\Tom & Liisbet Wedding Website\\\\Images\\\\Elements\")"
+    ]
+  }
+}
