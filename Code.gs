@@ -24,7 +24,8 @@ var HEADERS = [
   'Message',
   'Invite ID',       // L (index 11)
   'Submission Type', // M (index 12) — "New" or "Update"
-  'Plus One Name'    // N (index 13)
+  'Plus One Name',   // N (index 13)
+  'Attending Names'  // O (index 14) — listed when fewer guests attend than invited
 ];
 
 // Invites sheet headers
@@ -199,7 +200,8 @@ function doPost(e) {
       p.message         || '',
       inviteId,
       isUpdate ? 'Update' : 'New',
-      p.plus_one_name || ''
+      p.plus_one_name    || '',
+      p.attending_names  || ''
     ]);
 
     // Mark the invite row as submitted
@@ -361,6 +363,7 @@ function setupRsvpSheet() {
   sheet.setColumnWidth(12, 70);   // Invite ID
   sheet.setColumnWidth(13, 100);  // Submission Type
   sheet.setColumnWidth(14, 130);  // Plus One Name
+  sheet.setColumnWidth(15, 200);  // Attending Names
 
   Logger.log('RSVPs sheet created successfully.');
 }

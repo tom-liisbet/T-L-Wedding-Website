@@ -318,20 +318,6 @@
     user-select: none;
   }
 
-  #plus-one-name-reveal {
-    margin-top: 16px;
-    padding: 20px 20px 4px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border-gold);
-    border-radius: 2px;
-    animation: fadeIn 0.18s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   .footer-contact {
     font-size: 0.7rem;
     letter-spacing: 0.1em;
@@ -858,10 +844,16 @@
       <img src="Images/Photos/Moki Roll.JPG"           alt=""/>
       <img src="Images/Photos/Baby Moki.jpg"           alt=""/>
       <img src="Images/Photos/Vironia.jpg"             alt=""/>
-      <img src="Images/Photos/20240307_130707.jpg"     alt=""/>
+      <img src="Images/Photos/Cornbread.jpg"             alt=""/>
       <img src="Images/Photos/20240726_143652.jpg"     alt=""/>
       <img src="Images/Photos/20180224_234718.jpg"     alt=""/>
       <img src="Images/Photos/20240727_190041.jpg"     alt=""/>
+      <img src="Images/Photos/IMG_5367.JPG"            alt=""/>
+      <img src="Images/Photos/IMG_0731.PNG"            alt=""/>
+      <img src="Images/Photos/IMG_8522.jpg"             alt=""/>
+      <img src="Images/Photos/IMG_8042.jpg"             alt=""/>
+      <img src="Images/Photos/IMG_6804.jpg"             alt=""/>
+      <img src="Images/Photos/IMG_5089.jpg"             alt=""/>
     </div>
   </div>
 </section>
@@ -939,24 +931,11 @@
       <input type="hidden" name="invite_id" id="invite-id-val" value=""/>
       <input type="hidden" name="is_update" id="is-update-val" value="false"/>
 
+      <!-- Hidden fields pre-filled from invite lookup -->
+      <input type="hidden" name="email" id="email-val" value=""/>
+
       <!-- Personalised greeting -->
       <p id="invite-greeting" style="display:none;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--gold-light);margin-bottom:28px"></p>
-
-      <div class="form-grid">
-        <div class="form-row">
-          <label>First Name</label>
-          <input type="text" name="first_name" placeholder="Your first name" required/>
-        </div>
-        <div class="form-row">
-          <label>Last Name</label>
-          <input type="text" name="last_name" placeholder="Your last name" required/>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label>Email Address</label>
-        <input type="email" name="email" placeholder="your@email.com" required/>
-      </div>
 
       <div class="form-row">
         <label>Attendance</label>
@@ -974,26 +953,22 @@
       <div id="attending-fields">
         <div class="form-row" id="guests-row">
           <label>Number of Guests (including yourself)</label>
-          <select name="guests">
-            <option value="1">1 — Just me</option>
-            <option value="2" selected>2 — Me + 1</option>
+          <select name="guests" onchange="guestsChanged()">
+            <option value="1">1</option>
+            <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
         </div>
 
-        <div class="form-row" id="plus-one-section" style="display:none">
-          <label>Will you be bringing a +1?</label>
-          <div class="att-row">
-            <button type="button" class="att-btn" id="plus-one-yes" onclick="setPlusOne(true)">Yes, +1</button>
-            <button type="button" class="att-btn" id="plus-one-no" onclick="setPlusOne(false)">Just me</button>
-          </div>
-          <div id="plus-one-name-reveal" style="display:none">
-            <div class="form-row" style="margin-bottom:0">
-              <label>Their name</label>
-              <input type="text" name="plus_one_name" id="plus-one-name-input" placeholder="Guest's full name"/>
-            </div>
-          </div>
+        <div class="form-row" id="who-is-coming-row" style="display:none">
+          <label>Who will be attending?</label>
+          <textarea name="attending_names" id="attending-names-input" placeholder="List the names of those coming"></textarea>
+        </div>
+
+        <div class="form-row" id="plus-one-name-row" style="display:none">
+          <label>Plus one's name <span style="opacity:0.45">(optional)</span></label>
+          <input type="text" name="plus_one_name" id="plus-one-name-input" placeholder="Guest's full name"/>
         </div>
 
         <div class="form-row">
@@ -1095,21 +1070,24 @@
     document.getElementById('attending-fields').style.display = val === 'yes' ? 'block' : 'none';
   }
 
+  // ── Guest count change ──
+  function guestsChanged() {
+    const maxG = currentInvite ? (parseInt(currentInvite.maxGuests) || 1) : 1;
+    const sel  = document.querySelector('select[name="guests"]');
+    if (parseInt(sel.value) < maxG) {
+      show('who-is-coming-row');
+    } else {
+      hide('who-is-coming-row');
+      document.getElementById('attending-names-input').value = '';
+    }
+  }
+
   // ── Tuljak toggle ──
   function setTuljak(val) {
     document.getElementById('tuljak-val').value = val;
     ['yes','maybe','no'].forEach(v =>
       document.getElementById('tulj-' + v).classList.toggle('active', v === val)
     );
-  }
-
-  // ── +1 toggle ──
-  function setPlusOne(yes) {
-    document.getElementById('plus-one-yes').classList.toggle('active', yes);
-    document.getElementById('plus-one-no').classList.toggle('active', !yes);
-    document.getElementById('plus-one-name-reveal').style.display = yes ? 'block' : 'none';
-    document.querySelector('select[name="guests"]').value = yes ? '2' : '1';
-    if (!yes) document.getElementById('plus-one-name-input').value = '';
   }
 
   // ── Invite-only RSVP system ──
@@ -1157,10 +1135,26 @@
     document.getElementById('invite-id-val').value  = currentInvite ? currentInvite.inviteId  : '';
     document.getElementById('is-update-val').value  = isUpdate ? 'true' : 'false';
 
+    // Pre-fill hidden email from lookup
+    document.getElementById('email-val').value = document.getElementById('lookup-email').value.trim();
+
+    // Parse guest names once — used for greeting and +1 logic
+    const names = currentInvite && currentInvite.guestNames
+      ? currentInvite.guestNames.split(',').map(n => n.trim()).filter(Boolean)
+      : [];
+
     // Personalised greeting
-    if (currentInvite && currentInvite.guestNames) {
+    if (names.length) {
       const greet = document.getElementById('invite-greeting');
-      greet.textContent  = 'Welcome, ' + currentInvite.guestNames + '!';
+      let greetText = 'Welcome, ';
+      if (names.length === 1) {
+        greetText += names[0];
+      } else if (names.length === 2) {
+        greetText += names[0] + ' and ' + names[1];
+      } else {
+        greetText += names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
+      }
+      greet.textContent  = greetText + '!';
       greet.style.display = 'block';
     }
 
@@ -1169,26 +1163,26 @@
     const plusOne = currentInvite ? !!currentInvite.plusOne : false;
     const sel     = document.querySelector('select[name="guests"]');
 
-    if (plusOne) {
-      // Explicit +1 invite — show yes/no toggle
+    // Always show dropdown capped at maxGuests (hide if solo)
+    if (maxG <= 1) {
       hide('guests-row');
-      show('plus-one-section');
-      sel.value = '1';
-    } else if (maxG <= 1) {
-      // Solo invite — no guest count shown
-      hide('guests-row');
-      hide('plus-one-section');
-      sel.value = '1';
     } else {
-      // Group invite — show dropdown capped at maxG
       show('guests-row');
-      hide('plus-one-section');
       Array.from(sel.options).forEach(opt => {
         const over = parseInt(opt.value) > maxG;
         opt.disabled = over;
         opt.hidden   = over;
       });
-      if (parseInt(sel.value) > maxG) sel.value = String(maxG);
+    }
+    sel.value = String(maxG);
+    hide('who-is-coming-row');
+    document.getElementById('attending-names-input').value = '';
+
+    // Show +1 name input only for a single-name invite with plusOne enabled and maxGuests=2
+    if (names.length === 1 && plusOne && maxG === 2) {
+      show('plus-one-name-row');
+    } else {
+      hide('plus-one-name-row');
     }
 
     // Disable cabin option if fully booked
@@ -1227,9 +1221,10 @@
     hide('lookup-not-found');
     hide('lookup-already-rsvped');
     hide('rsvp-form');
-    hide('plus-one-section');
-    document.getElementById('plus-one-name-reveal').style.display = 'none';
+    hide('plus-one-name-row');
+    hide('who-is-coming-row');
     document.getElementById('plus-one-name-input').value = '';
+    document.getElementById('attending-names-input').value = '';
     document.getElementById('lookup-email').value = '';
     const btn = document.getElementById('lookup-btn');
     btn.textContent = 'Check my invite';
