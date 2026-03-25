@@ -23,7 +23,8 @@ var HEADERS = [
   'Song Request',
   'Message',
   'Invite ID',       // L (index 11)
-  'Submission Type'  // M (index 12) — "New" or "Update"
+  'Submission Type', // M (index 12) — "New" or "Update"
+  'Plus One Name'    // N (index 13)
 ];
 
 // Invites sheet headers
@@ -33,7 +34,8 @@ var INVITE_HEADERS = [
   'Guest Names',      // C — display name shown on site, e.g. "John & Jane Smith"
   'Max Guests',       // D — max guests allowed for this invite
   'RSVP Submitted',   // E — auto-filled: blank → "yes"
-  'RSVP Timestamp'    // F — auto-filled date/time
+  'RSVP Timestamp',   // F — auto-filled date/time
+  'Plus One'          // G — "yes" if this individual invitee is allowed to bring a +1
 ];
 
 // ── Utility ──
@@ -137,8 +139,9 @@ function lookupEmail(email) {
           found:         true,
           inviteId:      String(row[0]),
           guestNames:    String(row[2]),
-          maxGuests:     parseInt(row[3]) || 4,
-          alreadyRsvped: String(row[4]).toLowerCase() === 'yes'
+          maxGuests:     parseInt(row[3]) || 1,
+          alreadyRsvped: String(row[4]).toLowerCase() === 'yes',
+          plusOne:       String(row[6]).toLowerCase() === 'yes'
         });
       }
     }
@@ -195,7 +198,8 @@ function doPost(e) {
       p.song_request    || '',
       p.message         || '',
       inviteId,
-      isUpdate ? 'Update' : 'New'
+      isUpdate ? 'Update' : 'New',
+      p.plus_one_name || ''
     ]);
 
     // Mark the invite row as submitted
@@ -237,6 +241,7 @@ function markInviteRsvped(inviteId) {
 function setup() {
   setupHomeSheet();
   setupInvitesSheet();
+  setupRsvpSheet();
   Logger.log('Setup complete.');
 }
 
@@ -321,8 +326,43 @@ function setupInvitesSheet() {
   sheet.setColumnWidth(4, 90);   // Max Guests
   sheet.setColumnWidth(5, 120);  // RSVP Submitted
   sheet.setColumnWidth(6, 160);  // RSVP Timestamp
+  sheet.setColumnWidth(7, 80);   // Plus One
 
   Logger.log('Invites sheet created successfully.');
+}
+
+function setupRsvpSheet() {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+
+  if (sheet) {
+    Logger.log('RSVPs sheet already exists — nothing to do.');
+    return;
+  }
+
+  sheet = ss.insertSheet(SHEET_NAME);
+  sheet.appendRow(HEADERS);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, HEADERS.length)
+    .setFontWeight('bold')
+    .setBackground('#e8f0ed');
+
+  sheet.setColumnWidth(1,  160);  // Timestamp
+  sheet.setColumnWidth(2,  100);  // First Name
+  sheet.setColumnWidth(3,  100);  // Last Name
+  sheet.setColumnWidth(4,  200);  // Email
+  sheet.setColumnWidth(5,  90);   // Attendance
+  sheet.setColumnWidth(6,  60);   // Guests
+  sheet.setColumnWidth(7,  200);  // Dietary
+  sheet.setColumnWidth(8,  110);  // Accommodation
+  sheet.setColumnWidth(9,  120);  // Tuljak Interest
+  sheet.setColumnWidth(10, 160);  // Song Request
+  sheet.setColumnWidth(11, 200);  // Message
+  sheet.setColumnWidth(12, 70);   // Invite ID
+  sheet.setColumnWidth(13, 100);  // Submission Type
+  sheet.setColumnWidth(14, 130);  // Plus One Name
+
+  Logger.log('RSVPs sheet created successfully.');
 }
 
 // ─────────────────────────────────────────────────────────────
