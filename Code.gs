@@ -7,6 +7,16 @@
 var SHEET_NAME         = 'RSVPs';
 var INVITES_SHEET_NAME = 'Invites';
 var HOME_SHEET_NAME    = 'Home';
+var SURVEYS_SHEET_NAME = 'Surveys';
+
+var SURVEY_HEADERS = [
+  'Timestamp',
+  'Name',
+  'Email',
+  'Accommodation Preference',
+  'Brunch Interest',
+  'Mailing Address'
+];
 
 // RSVPs sheet headers — Invite ID and Submission Type appended at the end
 // so existing rows remain valid if you had RSVPs before this update.
@@ -159,7 +169,13 @@ function lookupEmail(email) {
 // ─────────────────────────────────────────────────────────────
 function doPost(e) {
   try {
-    var ss    = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // Route survey submissions to their own sheet
+    if (e.parameter && e.parameter.form_type === 'survey') {
+      return saveSurvey(e.parameter, ss);
+    }
+
     var sheet = ss.getSheetByName(SHEET_NAME);
 
     // Create the RSVPs sheet on first run
@@ -236,6 +252,34 @@ function markInviteRsvped(inviteId) {
   }
 }
 
+// ── POST: save pre-RSVP survey response ──
+function saveSurvey(p, ss) {
+  var sheet = ss.getSheetByName(SURVEYS_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SURVEYS_SHEET_NAME);
+    sheet.appendRow(SURVEY_HEADERS);
+    sheet.setFrozenRows(1);
+    sheet.getRange(1, 1, 1, SURVEY_HEADERS.length)
+      .setFontWeight('bold')
+      .setBackground('#e8f0ed');
+    sheet.setColumnWidth(1, 160);
+    sheet.setColumnWidth(2, 160);
+    sheet.setColumnWidth(3, 200);
+    sheet.setColumnWidth(4, 180);
+    sheet.setColumnWidth(5, 120);
+    sheet.setColumnWidth(6, 260);
+  }
+  sheet.appendRow([
+    new Date(),
+    p.survey_name         || '',
+    p.survey_email        || '',
+    p.survey_accommodation|| '',
+    p.survey_brunch       || '',
+    p.survey_address      || ''
+  ]);
+  return jsonResponse({ result: 'success' });
+}
+
 // ─────────────────────────────────────────────────────────────
 //  RUN ONCE: combined setup — creates Home + Invites sheets
 //  In the Apps Script editor: Run → Run function → setup
@@ -244,7 +288,34 @@ function setup() {
   setupHomeSheet();
   setupInvitesSheet();
   setupRsvpSheet();
+  setupSurveysSheet();
   Logger.log('Setup complete.');
+}
+
+function setupSurveysSheet() {
+  var ss    = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SURVEYS_SHEET_NAME);
+
+  if (sheet) {
+    Logger.log('Surveys sheet already exists — nothing to do.');
+    return;
+  }
+
+  sheet = ss.insertSheet(SURVEYS_SHEET_NAME);
+  sheet.appendRow(SURVEY_HEADERS);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, SURVEY_HEADERS.length)
+    .setFontWeight('bold')
+    .setBackground('#e8f0ed');
+
+  sheet.setColumnWidth(1, 160);  // Timestamp
+  sheet.setColumnWidth(2, 160);  // Name
+  sheet.setColumnWidth(3, 200);  // Email
+  sheet.setColumnWidth(4, 180);  // Accommodation Preference
+  sheet.setColumnWidth(5, 120);  // Brunch Interest
+  sheet.setColumnWidth(6, 260);  // Mailing Address
+
+  Logger.log('Surveys sheet created successfully.');
 }
 
 function setupHomeSheet() {

@@ -799,25 +799,25 @@
     <h2 class="section-heading">Where to stay</h2>
     <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
     <p class="section-body">
-      Jõekääru has limited on-site accommodation for those who want to stay close to the celebration.
-      Let us know your plans in your RSVP.
+      Located about 90km north of Toronto, the area around Jõekääru has a number of accommodation
+      options — including right on the property itself.
     </p>
     <div class="details-grid">
       <div class="detail-card">
-        <p class="detail-title">Camping on Site</p>
-        <p class="detail-text">Bring your tent</p>
-        <p class="detail-desc">Stay right at Jõekääru. Fall asleep to the river and wake up to the trees.</p>
-      </div>
-      <div class="detail-card">
-        <p class="detail-title">Cabins</p>
-        <p class="detail-text">Limited availability</p>
-        <p class="detail-desc">Mention your interest in your RSVP — first come, first served.</p>
+        <p class="detail-title">Camp Cabins</p>
+        <p class="detail-text">On the property</p>
+        <p class="detail-desc">Bunk beds in a communal space with an indoor bathroom. Bring bedding (twin size) or a sleeping bag — and maybe earplugs. +2 points for spotting Liisbet's name written in the back room of the girls' cabin!</p>
         <p class="cabin-spots" id="cabin-spots" style="display:none"><span id="cabin-count"></span> spots remaining</p>
       </div>
       <div class="detail-card">
-        <p class="detail-title">Nearby Hotels</p>
-        <p class="detail-text">Sutton &amp; Uxbridge</p>
-        <p class="detail-desc">Both towns are roughly 20 minutes from the venue and offer hotels and B&amp;B options.</p>
+        <p class="detail-title">Tenting / RVs</p>
+        <p class="detail-text">On the property</p>
+        <p class="detail-desc">Want a touch more privacy? We've allocated space near the cabins for tenting or RVs. Let us know ahead of time in your RSVP.</p>
+      </div>
+      <div class="detail-card">
+        <p class="detail-title">Hotels</p>
+        <p class="detail-text">Uxbridge &amp; Newmarket</p>
+        <p class="detail-desc">B&amp;Bs in Uxbridge (~20 min) and hotel chains in Newmarket &amp; Aurora (~30 min). We're working on a group rate and a shuttle back from the venue once your dancing shoes wear out.</p>
       </div>
       <div class="detail-card">
         <p class="detail-title">Getting There</p>
@@ -839,21 +839,15 @@
     <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
     <div class="gallery-grid">
       <img class="gallery-featured" src="Images/Photos/Kamp.jpg" alt=""/>
-      <img src="Images/Photos/Kiss Altar.JPG"          alt=""/>
-      <img src="Images/Photos/polaroid.jpg"            alt=""/>
-      <img src="Images/Photos/Moki Roll.JPG"           alt=""/>
-      <img src="Images/Photos/Baby Moki.jpg"           alt=""/>
-      <img src="Images/Photos/Vironia.jpg"             alt=""/>
-      <img src="Images/Photos/Cornbread.jpg"             alt=""/>
-      <img src="Images/Photos/20240726_143652.jpg"     alt=""/>
-      <img src="Images/Photos/20180224_234718.jpg"     alt=""/>
-      <img src="Images/Photos/20240727_190041.jpg"     alt=""/>
-      <img src="Images/Photos/IMG_5367.JPG"            alt=""/>
-      <img src="Images/Photos/IMG_0731.PNG"            alt=""/>
-      <img src="Images/Photos/IMG_8522.jpg"             alt=""/>
-      <img src="Images/Photos/IMG_8042.jpg"             alt=""/>
-      <img src="Images/Photos/IMG_6804.jpg"             alt=""/>
-      <img src="Images/Photos/IMG_5089.jpg"             alt=""/>
+      <img src="Images/Photos/Kiss Altar.JPG"      alt=""/>
+      <img src="Images/Photos/polaroid.jpg"        alt=""/>
+      <img src="Images/Photos/Moki Roll.JPG"       alt=""/>
+      <img src="Images/Photos/Baby Moki.jpg"       alt=""/>
+      <img src="Images/Photos/Cornbread.jpg"       alt=""/>
+      <img src="Images/Photos/20180224_234718.jpg" alt=""/>
+      <img src="Images/Photos/IMG_6804.jpg"        alt=""/>
+      <img src="Images/Photos/IMG_8042.jpg"        alt=""/>
+      <img src="Images/Photos/Untitled.jpg"        alt=""/>
     </div>
   </div>
 </section>
@@ -863,6 +857,77 @@
   <img src="Images/Elements/Maple leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
   <img src="Images/Elements/Maple Tree Sillouette.png" class="margin-tree margin-tree--left margin-tree--maple" alt="" aria-hidden="true"/>
   <div class="section-inner">
+
+    <!-- ── PRE-RSVP SURVEY — shown before June 15, 2026 ── -->
+    <div id="survey-panel" style="display:none">
+      <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+      <p class="section-tag">Save the Date</p>
+      <h2 class="section-heading">A few quick questions</h2>
+      <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
+      <p class="section-body">
+        To help with our planning, we'd love if you could answer a few short questions.
+        Nothing binding — just a better picture of how to coordinate your comfort as our guests!
+      </p>
+      <p class="section-body" style="margin-top:14px;font-size:0.82rem;color:var(--white-dim)">
+        Full RSVPs open in June.
+      </p>
+
+      <form id="survey-form" class="rsvp-form" style="margin-top:40px"
+        action="https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec"
+        method="POST">
+        <input type="hidden" name="form_type" value="survey"/>
+
+        <div class="form-row">
+          <label>Your Name</label>
+          <input type="text" name="survey_name" placeholder="Your full name" required/>
+        </div>
+
+        <div class="form-row">
+          <label>Email Address</label>
+          <input type="email" name="survey_email" placeholder="your@email.com" required/>
+        </div>
+
+        <div class="form-row">
+          <label>Where do you anticipate staying the night?</label>
+          <select name="survey_accommodation">
+            <option value="">— Select an option —</option>
+            <option value="hotel-block">Hotel block</option>
+            <option value="cabin">Cabins on the property</option>
+            <option value="tent-rv">Tent / RV on the property</option>
+            <option value="other">Other (private accommodation, other hotel, etc.)</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Would you be interested in a casual brunch at the venue Sunday morning?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="brunch-yes"   onclick="setBrunch('yes')">Yes!</button>
+            <button type="button" class="att-btn" id="brunch-maybe" onclick="setBrunch('maybe')">Maybe</button>
+            <button type="button" class="att-btn" id="brunch-no"    onclick="setBrunch('no')">No thanks</button>
+          </div>
+          <input type="hidden" name="survey_brunch" id="brunch-val" value=""/>
+        </div>
+
+        <div class="form-row">
+          <label>Full Mailing Address</label>
+          <textarea name="survey_address" placeholder="Street, City, Province / State, Postal Code" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="survey-submit-btn">Send</button>
+      </form>
+
+      <div id="survey-success" style="display:none;text-align:center;padding:48px 24px;">
+        <img src="Images/Elements/maple leaf.png" class="success-icon" alt="" aria-hidden="true"/>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--white);margin-bottom:12px">Thank you!</h3>
+        <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7">
+          We'll be in touch with more details as the date approaches.<br>
+          Full RSVPs open in June.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── RSVP PANEL — shown from June 15, 2026 onwards ── -->
+    <div id="rsvp-panel" style="display:none">
     <div id="rsvp-header">
       <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
       <p class="section-tag">RSVP</p>
@@ -966,9 +1031,18 @@
           <textarea name="attending_names" id="attending-names-input" placeholder="List the names of those coming"></textarea>
         </div>
 
-        <div class="form-row" id="plus-one-name-row" style="display:none">
-          <label>Plus one's name <span style="opacity:0.45">(optional)</span></label>
-          <input type="text" name="plus_one_name" id="plus-one-name-input" placeholder="Guest's full name"/>
+        <div class="form-row" id="plus-one-section" style="display:none">
+          <label>Will you be bringing a +1?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="plus-one-yes" onclick="setPlusOne(true)">Yes</button>
+            <button type="button" class="att-btn" id="plus-one-no" onclick="setPlusOne(false)">No</button>
+          </div>
+          <div id="plus-one-name-row" style="display:none;margin-top:16px">
+            <div class="form-row" style="margin-bottom:0">
+              <label>Their name <span style="opacity:0.45">(optional)</span></label>
+              <input type="text" name="plus_one_name" id="plus-one-name-input" placeholder="Guest's full name"/>
+            </div>
+          </div>
         </div>
 
         <div class="form-row">
@@ -1019,6 +1093,7 @@
       <h3>Thank you!</h3>
       <p id="rsvp-success-text">Your RSVP has been received.<br>We look forward to celebrating with you.</p>
     </div>
+    </div><!-- end #rsvp-panel -->
   </div>
 </section>
 
@@ -1062,12 +1137,60 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
+  // ── Survey / RSVP panel switch ──
+  const RSVP_OPEN = new Date('2026-06-15T00:00:00');
+  if (new Date() >= RSVP_OPEN) {
+    document.getElementById('rsvp-panel').style.display   = 'block';
+    document.getElementById('survey-panel').style.display = 'none';
+  } else {
+    document.getElementById('survey-panel').style.display = 'block';
+    document.getElementById('rsvp-panel').style.display   = 'none';
+  }
+
+  // ── Brunch toggle (survey) ──
+  function setBrunch(val) {
+    document.getElementById('brunch-val').value = val;
+    ['yes','maybe','no'].forEach(v =>
+      document.getElementById('brunch-' + v).classList.toggle('active', v === val)
+    );
+  }
+
+  // ── Survey form submission ──
+  document.getElementById('survey-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn     = document.getElementById('survey-submit-btn');
+    const origTxt = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      await fetch(this.action, {
+        method: 'POST',
+        body:   new URLSearchParams(new FormData(this)),
+        mode:   'no-cors'
+      });
+      document.getElementById('survey-form').style.display    = 'none';
+      document.getElementById('survey-success').style.display = 'block';
+    } catch {
+      btn.textContent = origTxt;
+      btn.disabled    = false;
+    }
+  });
+
   // ── Attendance toggle ──
   function setAttendance(val) {
     document.getElementById('attendance-val').value = val;
     document.getElementById('att-yes').classList.toggle('active', val === 'yes');
     document.getElementById('att-no').classList.toggle('active',  val === 'no');
     document.getElementById('attending-fields').style.display = val === 'yes' ? 'block' : 'none';
+  }
+
+  // ── +1 toggle ──
+  function setPlusOne(yes) {
+    document.getElementById('plus-one-yes').classList.toggle('active', yes);
+    document.getElementById('plus-one-no').classList.toggle('active', !yes);
+    document.getElementById('plus-one-name-row').style.display = yes ? 'block' : 'none';
+    if (!yes) document.getElementById('plus-one-name-input').value = '';
   }
 
   // ── Guest count change ──
@@ -1178,12 +1301,17 @@
     hide('who-is-coming-row');
     document.getElementById('attending-names-input').value = '';
 
-    // Show +1 name input only for a single-name invite with plusOne enabled and maxGuests=2
-    if (names.length === 1 && plusOne && maxG === 2) {
-      show('plus-one-name-row');
+    // Show +1 yes/no toggle for any invite with plusOne enabled
+    if (plusOne) {
+      show('plus-one-section');
     } else {
-      hide('plus-one-name-row');
+      hide('plus-one-section');
     }
+    // Reset toggle state
+    document.getElementById('plus-one-name-row').style.display = 'none';
+    document.getElementById('plus-one-name-input').value = '';
+    document.getElementById('plus-one-yes').classList.remove('active');
+    document.getElementById('plus-one-no').classList.remove('active');
 
     // Disable cabin option if fully booked
     const cabinOpt = document.querySelector('select[name="accommodation"] option[value="cabin"]');
@@ -1221,10 +1349,13 @@
     hide('lookup-not-found');
     hide('lookup-already-rsvped');
     hide('rsvp-form');
-    hide('plus-one-name-row');
+    hide('plus-one-section');
     hide('who-is-coming-row');
+    document.getElementById('plus-one-name-row').style.display = 'none';
     document.getElementById('plus-one-name-input').value = '';
     document.getElementById('attending-names-input').value = '';
+    document.getElementById('plus-one-yes').classList.remove('active');
+    document.getElementById('plus-one-no').classList.remove('active');
     document.getElementById('lookup-email').value = '';
     const btn = document.getElementById('lookup-btn');
     btn.textContent = 'Check my invite';
