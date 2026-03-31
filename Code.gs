@@ -15,7 +15,8 @@ var SURVEY_HEADERS = [
   'Email',
   'Accommodation Preference',
   'Brunch Interest',
-  'Mailing Address'
+  'Mailing Address',
+  'Mobility Concerns'
 ];
 
 // RSVPs sheet headers — Invite ID and Submission Type appended at the end
@@ -268,6 +269,7 @@ function saveSurvey(p, ss) {
     sheet.setColumnWidth(4, 180);
     sheet.setColumnWidth(5, 120);
     sheet.setColumnWidth(6, 260);
+    sheet.setColumnWidth(7, 260);
   }
   sheet.appendRow([
     new Date(),
@@ -275,7 +277,8 @@ function saveSurvey(p, ss) {
     p.survey_email        || '',
     p.survey_accommodation|| '',
     p.survey_brunch       || '',
-    p.survey_address      || ''
+    p.survey_address      || '',
+    p.survey_mobility     || ''
   ]);
   return jsonResponse({ result: 'success' });
 }
@@ -314,6 +317,7 @@ function setupSurveysSheet() {
   sheet.setColumnWidth(4, 180);  // Accommodation Preference
   sheet.setColumnWidth(5, 120);  // Brunch Interest
   sheet.setColumnWidth(6, 260);  // Mailing Address
+  sheet.setColumnWidth(7, 260);  // Mobility Concerns
 
   Logger.log('Surveys sheet created successfully.');
 }
