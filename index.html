@@ -758,7 +758,7 @@
       375m from the reception area, crossing 2 narrow footbridges. Please let us know down
       below if you have any mobility concerns, and we will get back to you with a solution.
     </p>
-    <p class="section-body" style="margin-bottom:36px;font-size:0.9rem;text-align:left;max-width:620px;margin-left:auto;margin-right:auto">
+    <p class="section-body" style="margin-bottom:36px;font-size:0.9rem;text-align:center;max-width:620px;margin-left:auto;margin-right:auto">
       <span style="display:block;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--leaf);margin-bottom:10px">Getting There</span>
       From Toronto, take Hwy 404 north, then head east on Ravenshoe Rd. Note that GPS
       systems may not direct you properly for this last portion: turn north on Manniku Rd.
@@ -804,15 +804,15 @@
     </p>
     <div class="details-grid" style="margin-top:28px">
       <div class="detail-card">
+        <p class="detail-title">Tenting / RVs</p>
+        <p class="detail-text">Grounds & field</p>
+        <p class="detail-desc">Want a touch more privacy? We've allocated space near the cabins for tenting or RVs. Let us know ahead of time in your RSVP.</p>
+      </div>
+      <div class="detail-card">
         <p class="detail-title">Camp Cabins</p>
         <p class="detail-text">On the property</p>
         <p class="detail-desc">Bunk beds in a communal space with an indoor bathroom. Bring bedding (twin size) or a sleeping bag — and maybe earplugs. +2 points for spotting Liisbet's name written in the back room of the girls' cabin!</p>
         <p class="cabin-spots" id="cabin-spots" style="display:none"><span id="cabin-count"></span> spots remaining</p>
-      </div>
-      <div class="detail-card">
-        <p class="detail-title">Tenting / RVs</p>
-        <p class="detail-text">Grounds & field</p>
-        <p class="detail-desc">Want a touch more privacy? We've allocated space near the cabins for tenting or RVs. Let us know ahead of time in your RSVP.</p>
       </div>
       <div class="detail-card">
         <p class="detail-title">Hotels</p>
@@ -909,8 +909,12 @@
         </div>
 
         <div class="form-row">
-          <label>Do you have any mobility concerns we should know about? <span style="opacity:0.45">(optional)</span></label>
-          <textarea name="survey_mobility" placeholder="e.g. difficulty with uneven terrain, narrow bridges, stairs, etc."></textarea>
+          <label>Do you have any mobility concerns we should follow up with you about?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="mobility-yes" onclick="setMobility('yes')">Yes</button>
+            <button type="button" class="att-btn" id="mobility-no"  onclick="setMobility('no')">No</button>
+          </div>
+          <input type="hidden" name="survey_mobility" id="mobility-val" value=""/>
         </div>
 
         <button type="submit" class="submit-btn" id="survey-submit-btn">Send</button>
@@ -1152,6 +1156,14 @@
     document.getElementById('brunch-val').value = val;
     ['yes','maybe','no'].forEach(v =>
       document.getElementById('brunch-' + v).classList.toggle('active', v === val)
+    );
+  }
+
+  // ── Mobility toggle (survey) ──
+  function setMobility(val) {
+    document.getElementById('mobility-val').value = val;
+    ['yes','no'].forEach(v =>
+      document.getElementById('mobility-' + v).classList.toggle('active', v === val)
     );
   }
 
