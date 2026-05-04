@@ -1388,7 +1388,11 @@
         cabinAvailable = data.available;
         document.getElementById('cabin-count').textContent =
           data.available + ' of ' + data.total;
-        document.getElementById('cabin-spots').style.display = 'block';
+        // Only show the spot counter on or after June 15, 2026
+        const showDate = new Date('2026-06-15');
+        if (new Date() >= showDate) {
+          document.getElementById('cabin-spots').style.display = 'block';
+        }
       }
     } catch { /* silently fail — counter stays hidden */ }
   })();
