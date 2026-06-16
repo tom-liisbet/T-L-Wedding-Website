@@ -853,7 +853,7 @@
   <img src="Images/Elements/Maple Tree Sillouette.png" class="margin-tree margin-tree--left margin-tree--maple" alt="" aria-hidden="true"/>
   <div class="section-inner">
 
-    <!-- ── PRE-RSVP SURVEY — shown before June 15, 2026 ── -->
+    <!-- ── PRE-RSVP SURVEY — shown before July 5, 2026 ── -->
     <div id="survey-panel" style="display:none">
       <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
       <p class="section-tag">Save the Date</p>
@@ -930,7 +930,7 @@
       </div>
     </div>
 
-    <!-- ── RSVP PANEL — shown from June 15, 2026 onwards ── -->
+    <!-- ── RSVP PANEL — shown from July 5, 2026 onwards ── -->
     <div id="rsvp-panel" style="display:none">
     <div id="rsvp-header">
       <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
@@ -938,7 +938,7 @@
       <h2 class="section-heading">Will you join us?</h2>
       <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
       <p class="section-body">
-        Kindly reply by <strong style="color:var(--gold-light)">July 5th, 2026</strong>.<br>
+        Kindly reply by <strong style="color:var(--gold-light)">August 7th, 2026</strong>.<br>
         We can't wait to celebrate with you.
       </p>
     </div>
@@ -1142,7 +1142,7 @@
   setInterval(updateCountdown, 1000);
 
   // ── Survey / RSVP panel switch ──
-  const RSVP_OPEN = new Date('2026-06-15T00:00:00');
+  const RSVP_OPEN = new Date('2026-07-05T00:00:00');
   if (new Date() >= RSVP_OPEN) {
     document.getElementById('rsvp-panel').style.display   = 'block';
     document.getElementById('survey-panel').style.display = 'none';
@@ -1388,8 +1388,8 @@
         cabinAvailable = data.available;
         document.getElementById('cabin-count').textContent =
           data.available + ' of ' + data.total;
-        // Only show the spot counter on or after June 15, 2026
-        const showDate = new Date('2026-06-15');
+        // Only show the spot counter on or after July 5, 2026
+        const showDate = new Date('2026-07-05');
         if (new Date() >= showDate) {
           document.getElementById('cabin-spots').style.display = 'block';
         }
