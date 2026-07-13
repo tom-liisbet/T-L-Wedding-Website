@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RSVP — Tom & Liisbet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">T &amp; L</a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="schedule.html">Schedule</a></li>
+    <li><a href="venue.html">Venue</a></li>
+    <li><a href="map.html">Map</a></li>
+    <li><a href="stay.html">Stay</a></li>
+    <li><a href="gallery.html">Photos</a></li>
+    <li><a href="rsvp.html" class="active">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- RSVP -->
+<section class="page-first rsvp-bg">
+  <img src="Images/Elements/Maple leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
+  <img src="Images/Elements/Maple Tree Sillouette.png" class="margin-tree margin-tree--left margin-tree--maple" alt="" aria-hidden="true"/>
+  <div class="section-inner">
+
+    <!-- ── PRE-RSVP SURVEY — shown before July 5, 2026 ── -->
+    <div id="survey-panel" style="display:none">
+      <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+      <p class="section-tag">Save the Date</p>
+      <h2 class="section-heading">A few quick questions</h2>
+      <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
+      <p class="section-body">
+        To help with our planning, we'd love if you could answer a few short questions.
+        Nothing binding — just a better picture of how to coordinate your comfort as our guests!
+      </p>
+      <p class="section-body" style="margin-top:14px;font-size:0.82rem;color:var(--white-dim)">
+        Full RSVPs open in June.
+      </p>
+
+      <form id="survey-form" class="rsvp-form" style="margin-top:40px"
+        action="https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec"
+        method="POST">
+        <input type="hidden" name="form_type" value="survey"/>
+
+        <div class="form-row">
+          <label>Your Name</label>
+          <input type="text" name="survey_name" placeholder="Your full name" required/>
+        </div>
+
+        <div class="form-row">
+          <label>Email Address</label>
+          <input type="email" name="survey_email" placeholder="your@email.com" required/>
+        </div>
+
+        <div class="form-row">
+          <label>Where do you anticipate staying the night?</label>
+          <select name="survey_accommodation">
+            <option value="">— Select an option —</option>
+            <option value="hotel-block">Hotel block</option>
+            <option value="cabin">Cabins on the property</option>
+            <option value="tent-rv">Tent / RV on the property</option>
+            <option value="other">Other (private accommodation, other hotel, etc.)</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Would you be interested in a casual brunch at the venue Sunday morning?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="brunch-yes"   onclick="setBrunch('yes')">Yes!</button>
+            <button type="button" class="att-btn" id="brunch-maybe" onclick="setBrunch('maybe')">Maybe</button>
+            <button type="button" class="att-btn" id="brunch-no"    onclick="setBrunch('no')">No thanks</button>
+          </div>
+          <input type="hidden" name="survey_brunch" id="brunch-val" value=""/>
+        </div>
+
+        <div class="form-row">
+          <label>Full Mailing Address</label>
+          <textarea name="survey_address" placeholder="Street, City, Province / State, Postal Code" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Do you have any mobility concerns we should follow up with you about?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="mobility-yes" onclick="setMobility('yes')">Yes</button>
+            <button type="button" class="att-btn" id="mobility-no"  onclick="setMobility('no')">No</button>
+          </div>
+          <input type="hidden" name="survey_mobility" id="mobility-val" value=""/>
+        </div>
+
+        <button type="submit" class="submit-btn" id="survey-submit-btn">Send</button>
+      </form>
+
+      <div id="survey-success" style="display:none;text-align:center;padding:48px 24px;">
+        <img src="Images/Elements/maple leaf.png" class="success-icon" alt="" aria-hidden="true"/>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--white);margin-bottom:12px">Thank you!</h3>
+        <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7">
+          We'll be in touch with more details as the date approaches.<br>
+          Full RSVPs open in June.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── RSVP PANEL — shown from July 5, 2026 onwards ── -->
+    <div id="rsvp-panel" style="display:none">
+    <div id="rsvp-header">
+      <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+      <p class="section-tag">RSVP</p>
+      <h2 class="section-heading">Will you join us?</h2>
+      <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
+      <p class="section-body">
+        Kindly reply by <strong style="color:var(--gold-light)">August 7th, 2026</strong>.<br>
+        We can't wait to celebrate with you.
+      </p>
+    </div>
+
+    <!-- Step 1: Email lookup -->
+    <div id="invite-lookup">
+      <div class="rsvp-form">
+        <div class="form-row">
+          <label>Your Email Address</label>
+          <input type="email" id="lookup-email" placeholder="your@email.com" autocomplete="email"/>
+        </div>
+        <button type="button" class="submit-btn" id="lookup-btn" onclick="lookupInvite()">
+          Check my invite
+        </button>
+      </div>
+    </div>
+
+    <!-- Email not on guest list -->
+    <div id="lookup-not-found" style="display:none;text-align:center;padding:48px 24px;">
+      <img src="Images/Elements/maple leaf.png" style="width:26px;opacity:0.55;display:block;margin:0 auto 20px" alt="" aria-hidden="true"/>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
+        Hmm, we couldn't find that email
+      </h3>
+      <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7;margin-bottom:28px">
+        This is an invite-only celebration. If you think this is a mistake,<br>
+        please reach us at <a href="mailto:tomandliisbet@gmail.com" style="color:var(--leaf);text-decoration:none">tomandliisbet@gmail.com</a>.
+      </p>
+      <button type="button" class="att-btn" onclick="resetToLookup()"
+        style="max-width:260px;margin:0 auto;display:block">
+        ← Try a different email
+      </button>
+    </div>
+
+    <!-- Already submitted an RSVP -->
+    <div id="lookup-already-rsvped" style="display:none;text-align:center;padding:48px 24px;">
+      <img src="Images/Elements/maple leaf.png" style="width:26px;opacity:0.55;display:block;margin:0 auto 20px" alt="" aria-hidden="true"/>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:12px">
+        We already have your RSVP!
+      </h3>
+      <p style="color:var(--white-soft);font-size:0.95rem;line-height:1.7;margin-bottom:28px">
+        <strong id="already-guest-name" style="color:var(--gold-light)"></strong>, you're already on the list.<br>
+        Would you like to update your response?
+      </p>
+      <div class="att-row" style="max-width:380px;margin:0 auto;justify-content:center">
+        <button type="button" class="att-btn" onclick="proceedWithUpdate()">Yes, update it</button>
+        <button type="button" class="att-btn" onclick="showSuccessNoChange()">No, I'm all set</button>
+      </div>
+    </div>
+
+    <!-- RSVP Form (revealed after successful lookup) -->
+    <form
+      id="rsvp-form"
+      class="rsvp-form"
+      action="https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec"
+      method="POST"
+      style="display:none"
+    >
+      <!-- Invite tracking -->
+      <input type="hidden" name="invite_id" id="invite-id-val" value=""/>
+      <input type="hidden" name="is_update" id="is-update-val" value="false"/>
+
+      <!-- Hidden fields pre-filled from invite lookup -->
+      <input type="hidden" name="email" id="email-val" value=""/>
+
+      <!-- Personalised greeting -->
+      <p id="invite-greeting" style="display:none;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--gold-light);margin-bottom:28px"></p>
+
+      <div class="form-row">
+        <label>Attendance</label>
+        <div class="att-row">
+          <button type="button" class="att-btn active" id="att-yes" onclick="setAttendance('yes')">
+            Joyfully accepts
+          </button>
+          <button type="button" class="att-btn" id="att-no" onclick="setAttendance('no')">
+            Regretfully declines
+          </button>
+        </div>
+        <input type="hidden" name="attendance" id="attendance-val" value="yes"/>
+      </div>
+
+      <div id="attending-fields">
+        <div class="form-row" id="guests-row">
+          <label>Number of Guests (including yourself)</label>
+          <select name="guests" onchange="guestsChanged()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <div class="form-row" id="who-is-coming-row" style="display:none">
+          <label>Who will be attending?</label>
+          <textarea name="attending_names" id="attending-names-input" placeholder="List the names of those coming"></textarea>
+        </div>
+
+        <div class="form-row" id="plus-one-section" style="display:none">
+          <label>Will you be bringing a +1?</label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="plus-one-yes" onclick="setPlusOne(true)">Yes</button>
+            <button type="button" class="att-btn" id="plus-one-no" onclick="setPlusOne(false)">No</button>
+          </div>
+          <div id="plus-one-name-row" style="display:none;margin-top:16px">
+            <div class="form-row" style="margin-bottom:0">
+              <label>Their name <span style="opacity:0.45">(optional)</span></label>
+              <input type="text" name="plus_one_name" id="plus-one-name-input" placeholder="Guest's full name"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Dietary Restrictions or Allergies</label>
+          <textarea name="dietary" placeholder="e.g. nut allergy, gluten-free, none"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Accommodation</label>
+          <select name="accommodation">
+            <option value="">— How will you be staying? —</option>
+            <option value="camping">Camping on site</option>
+            <option value="cabin">Cabin</option>
+            <option value="hotel">Hotel / nearby</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>
+            Tuljak
+            <span style="text-transform:none;letter-spacing:0;opacity:0.55;font-size:0.85em"> — Traditional Estonian circle dance</span>
+          </label>
+          <div class="att-row">
+            <button type="button" class="att-btn" id="tulj-yes"   onclick="setTuljak('yes')">Count me in!</button>
+            <button type="button" class="att-btn" id="tulj-maybe" onclick="setTuljak('maybe')">I'm curious</button>
+            <button type="button" class="att-btn" id="tulj-no"    onclick="setTuljak('no')">Not for me</button>
+          </div>
+          <input type="hidden" name="tuljak_interest" id="tuljak-val" value=""/>
+        </div>
+
+        <div class="form-row">
+          <label>Song Request <span style="opacity:0.45">(optional)</span></label>
+          <input type="text" name="song_request" placeholder="Artist — Song title"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Message for Tom & Liisbet <span style="opacity:0.45">(optional)</span></label>
+        <textarea name="message" placeholder="Share a note, well wishes, or let us know if you're bringing Moki a treat…"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="rsvp-submit-btn">Send My RSVP</button>
+    </form>
+
+    <div id="rsvp-success">
+      <img src="Images/Elements/maple leaf.png" class="success-icon" alt="" aria-hidden="true"/>
+      <h3>Thank you!</h3>
+      <p id="rsvp-success-text">Your RSVP has been received.<br>We look forward to celebrating with you.</p>
+    </div>
+    </div><!-- end #rsvp-panel -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img
+    src="Images/Elements/pine-tree-forest-silhouette-16-705244249.png"
+    class="footer-treeline"
+    alt=""
+    aria-hidden="true"
+  />
+  <p class="footer-names">Tom & Liisbet</p>
+  <p class="footer-date">September 5, 2026 · Udora, Ontario</p>
+  <p class="footer-contact">Questions? <a href="mailto:tomandliisbet@gmail.com">tomandliisbet@gmail.com</a></p>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  // ── Survey / RSVP panel switch ──
+  const RSVP_OPEN = new Date('2026-07-05T00:00:00');
+  if (new Date() >= RSVP_OPEN) {
+    document.getElementById('rsvp-panel').style.display   = 'block';
+    document.getElementById('survey-panel').style.display = 'none';
+  } else {
+    document.getElementById('survey-panel').style.display = 'block';
+    document.getElementById('rsvp-panel').style.display   = 'none';
+  }
+
+  // ── Brunch toggle (survey) ──
+  function setBrunch(val) {
+    document.getElementById('brunch-val').value = val;
+    ['yes','maybe','no'].forEach(v =>
+      document.getElementById('brunch-' + v).classList.toggle('active', v === val)
+    );
+  }
+
+  // ── Mobility toggle (survey) ──
+  function setMobility(val) {
+    document.getElementById('mobility-val').value = val;
+    ['yes','no'].forEach(v =>
+      document.getElementById('mobility-' + v).classList.toggle('active', v === val)
+    );
+  }
+
+  // ── Survey form submission ──
+  document.getElementById('survey-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn     = document.getElementById('survey-submit-btn');
+    const origTxt = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      await fetch(this.action, {
+        method: 'POST',
+        body:   new URLSearchParams(new FormData(this)),
+        mode:   'no-cors'
+      });
+      document.getElementById('survey-form').style.display    = 'none';
+      document.getElementById('survey-success').style.display = 'block';
+    } catch {
+      btn.textContent = origTxt;
+      btn.disabled    = false;
+    }
+  });
+
+  // ── Attendance toggle ──
+  function setAttendance(val) {
+    document.getElementById('attendance-val').value = val;
+    document.getElementById('att-yes').classList.toggle('active', val === 'yes');
+    document.getElementById('att-no').classList.toggle('active',  val === 'no');
+    document.getElementById('attending-fields').style.display = val === 'yes' ? 'block' : 'none';
+  }
+
+  // ── +1 toggle ──
+  function setPlusOne(yes) {
+    document.getElementById('plus-one-yes').classList.toggle('active', yes);
+    document.getElementById('plus-one-no').classList.toggle('active', !yes);
+    document.getElementById('plus-one-name-row').style.display = yes ? 'block' : 'none';
+    if (!yes) document.getElementById('plus-one-name-input').value = '';
+  }
+
+  // ── Guest count change ──
+  function guestsChanged() {
+    const maxG = currentInvite ? (parseInt(currentInvite.maxGuests) || 1) : 1;
+    const sel  = document.querySelector('select[name="guests"]');
+    if (parseInt(sel.value) < maxG) {
+      show('who-is-coming-row');
+    } else {
+      hide('who-is-coming-row');
+      document.getElementById('attending-names-input').value = '';
+    }
+  }
+
+  // ── Tuljak toggle ──
+  function setTuljak(val) {
+    document.getElementById('tuljak-val').value = val;
+    ['yes','maybe','no'].forEach(v =>
+      document.getElementById('tulj-' + v).classList.toggle('active', v === val)
+    );
+  }
+
+  // ── Invite-only RSVP system ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec';
+  let currentInvite  = null;
+  let cabinAvailable = null; // set on page load; null = unknown
+
+  function show(id) { document.getElementById(id).style.display = 'block'; }
+  function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+  async function lookupInvite() {
+    const email = document.getElementById('lookup-email').value.trim();
+    if (!email) return;
+
+    const btn = document.getElementById('lookup-btn');
+    btn.textContent = 'Checking…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch(SCRIPT_URL + '?action=lookup&email=' + encodeURIComponent(email));
+      const data = await res.json();
+
+      if (!data.found) {
+        hide('invite-lookup');
+        show('lookup-not-found');
+      } else if (data.alreadyRsvped) {
+        currentInvite = data;
+        document.getElementById('already-guest-name').textContent = data.guestNames || 'friend';
+        hide('invite-lookup');
+        show('lookup-already-rsvped');
+      } else {
+        currentInvite = data;
+        revealForm(false);
+      }
+    } catch {
+      btn.textContent = 'Could not connect — please try again';
+      btn.disabled = false;
+    }
+  }
+
+  function revealForm(isUpdate) {
+    hide('invite-lookup');
+    hide('lookup-already-rsvped');
+
+    document.getElementById('invite-id-val').value  = currentInvite ? currentInvite.inviteId  : '';
+    document.getElementById('is-update-val').value  = isUpdate ? 'true' : 'false';
+
+    // Pre-fill hidden email from lookup
+    document.getElementById('email-val').value = document.getElementById('lookup-email').value.trim();
+
+    // Parse guest names once — used for greeting and +1 logic
+    const names = currentInvite && currentInvite.guestNames
+      ? currentInvite.guestNames.split(',').map(n => n.trim()).filter(Boolean)
+      : [];
+
+    // Personalised greeting
+    if (names.length) {
+      const greet = document.getElementById('invite-greeting');
+      let greetText = 'Welcome, ';
+      if (names.length === 1) {
+        greetText += names[0];
+      } else if (names.length === 2) {
+        greetText += names[0] + ' and ' + names[1];
+      } else {
+        greetText += names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
+      }
+      greet.textContent  = greetText + '!';
+      greet.style.display = 'block';
+    }
+
+    // Set up guest count UI based on invite allowance
+    const maxG    = currentInvite ? (parseInt(currentInvite.maxGuests) || 1) : 1;
+    const plusOne = currentInvite ? !!currentInvite.plusOne : false;
+    const sel     = document.querySelector('select[name="guests"]');
+
+    // Always show dropdown capped at maxGuests (hide if solo)
+    if (maxG <= 1) {
+      hide('guests-row');
+    } else {
+      show('guests-row');
+      Array.from(sel.options).forEach(opt => {
+        const over = parseInt(opt.value) > maxG;
+        opt.disabled = over;
+        opt.hidden   = over;
+      });
+    }
+    sel.value = String(maxG);
+    hide('who-is-coming-row');
+    document.getElementById('attending-names-input').value = '';
+
+    // Show +1 yes/no toggle for any invite with plusOne enabled
+    if (plusOne) {
+      show('plus-one-section');
+    } else {
+      hide('plus-one-section');
+    }
+    // Reset toggle state
+    document.getElementById('plus-one-name-row').style.display = 'none';
+    document.getElementById('plus-one-name-input').value = '';
+    document.getElementById('plus-one-yes').classList.remove('active');
+    document.getElementById('plus-one-no').classList.remove('active');
+
+    // Disable cabin option if fully booked
+    const cabinOpt = document.querySelector('select[name="accommodation"] option[value="cabin"]');
+    if (cabinOpt) {
+      if (cabinAvailable !== null && cabinAvailable <= 0) {
+        cabinOpt.disabled    = true;
+        cabinOpt.textContent = 'Cabin (fully booked)';
+      } else {
+        cabinOpt.disabled    = false;
+        cabinOpt.textContent = 'Cabin';
+      }
+    }
+
+    if (isUpdate) {
+      document.getElementById('rsvp-submit-btn').textContent = 'Update My RSVP';
+    }
+
+    show('rsvp-form');
+  }
+
+  function proceedWithUpdate() {
+    revealForm(true);
+  }
+
+  function showSuccessNoChange() {
+    hide('rsvp-header');
+    hide('lookup-already-rsvped');
+    document.getElementById('rsvp-success-text').innerHTML =
+      "You're all set — we can't wait to see you.";
+    show('rsvp-success');
+  }
+
+  function resetToLookup() {
+    currentInvite = null;
+    hide('lookup-not-found');
+    hide('lookup-already-rsvped');
+    hide('rsvp-form');
+    hide('plus-one-section');
+    hide('who-is-coming-row');
+    document.getElementById('plus-one-name-row').style.display = 'none';
+    document.getElementById('plus-one-name-input').value = '';
+    document.getElementById('attending-names-input').value = '';
+    document.getElementById('plus-one-yes').classList.remove('active');
+    document.getElementById('plus-one-no').classList.remove('active');
+    document.getElementById('lookup-email').value = '';
+    const btn = document.getElementById('lookup-btn');
+    btn.textContent = 'Check my invite';
+    btn.disabled    = false;
+    show('invite-lookup');
+  }
+
+  document.getElementById('lookup-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); lookupInvite(); }
+  });
+
+  // ── Cabin availability (fetched once on load) ──
+  (async function() {
+    try {
+      const res  = await fetch(SCRIPT_URL + '?action=cabin-count');
+      const data = await res.json();
+      if (typeof data.available === 'number') {
+        cabinAvailable = data.available;
+      }
+    } catch { /* silently fail */ }
+  })();
+
+  // ── Form submission (Google Apps Script) ──
+  document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn     = document.getElementById('rsvp-submit-btn');
+    const origTxt = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      // no-cors required for Apps Script POST — response is opaque but data lands in the sheet
+      await fetch(this.action, {
+        method: 'POST',
+        body:   new URLSearchParams(new FormData(this)),
+        mode:   'no-cors'
+      });
+
+      hide('rsvp-header');
+      hide('rsvp-form');
+      show('rsvp-success');
+    } catch {
+      btn.textContent = origTxt;
+      btn.disabled    = false;
+    }
+  });
+</script>
+</body>
+</html>

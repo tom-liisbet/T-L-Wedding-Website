@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Where to Stay — Tom & Liisbet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">T &amp; L</a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="schedule.html">Schedule</a></li>
+    <li><a href="venue.html">Venue</a></li>
+    <li><a href="map.html">Map</a></li>
+    <li><a href="stay.html" class="active">Stay</a></li>
+    <li><a href="gallery.html">Photos</a></li>
+    <li><a href="rsvp.html">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- ACCOMMODATION -->
+<section class="page-first bg-mid">
+  <img src="Images/Elements/Maple leaves.png" class="oak-leaf oak-leaf--right" alt="" aria-hidden="true"/>
+  <img src="Images/Elements/Maple Tree Sillouette.png" class="margin-tree margin-tree--left margin-tree--maple" alt="" aria-hidden="true"/>
+  <div class="section-inner">
+    <img src="Images/Elements/maple leaf.png" class="leaf-ornament" alt="" aria-hidden="true"/>
+    <p class="section-tag">Accommodation</p>
+    <h2 class="section-heading">Where to stay</h2>
+    <img src="Images/Elements/pine needle branch.png" class="branch-divider" alt="" aria-hidden="true"/>
+    <p class="section-body">
+      We're so excited to party all night long with you, but we understand everyone's
+      dancing shoes wear out sooner or later. Please note on your
+      <a href="rsvp.html" style="color:var(--leaf);text-decoration:none;border-bottom:1px solid rgba(130,176,144,0.4)">RSVP</a>
+      if you are planning on spending the night on the property, and see below for
+      specific information! Locations mentioned refer to the
+      <a href="map.html" style="color:var(--leaf);text-decoration:none;border-bottom:1px solid rgba(130,176,144,0.4)">property map</a>.
+    </p>
+
+    <!-- HOTEL -->
+    <div class="stay-block">
+      <h3>Hotel</h3>
+      <p class="stay-sub">Comfort Inn · Newmarket</p>
+      <p>
+        We've secured a group rate at the Comfort Inn in Newmarket for
+        <strong>September 4th and 5th</strong>. When booking over the phone, please mention
+        the <strong>"Tiisler Wedding"</strong> to access the group rate.
+      </p>
+      <p>
+        Unfortunately, early check-in (before 3pm) is not available, which is why we've
+        secured the same rate for the night before the wedding as well. However you don't
+        need to book both nights to access the group rate.
+      </p>
+      <p>
+        Please book your hotel stay ASAP, as due to the holiday weekend they can only hold
+        the rooms until <strong>July 29th</strong>. After this day, the group rate is still
+        available over the phone, but based on room availability.
+      </p>
+      <p>
+        There are other hotels in the Newmarket area as well, specifically the
+        Fairfield by Marriott which is just down the street from the Comfort Inn (~200m).
+      </p>
+      <p>
+        A shuttle bus runs between the hotel block and the venue — it departs the hotel at
+        4:00 PM, and return shuttles run from 10:00 PM until 1:00 AM. See the
+        <a href="schedule.html">schedule</a>.
+      </p>
+    </div>
+
+    <!-- TENTING -->
+    <div class="stay-block">
+      <h3>Tenting</h3>
+      <p class="stay-sub">On the property</p>
+      <p>
+        Please park at the main parking lot on the West side of the river and make your way
+        over to the cabin area on foot. The designated tenting area is between the flagpoles
+        and volleyball courts (see orange area with dotted outline and tent icon on the
+        <a href="map.html">map</a>). Please use the cabins' bathrooms.
+      </p>
+    </div>
+
+    <!-- CABINS -->
+    <div class="stay-block">
+      <h3>Cabins</h3>
+      <p class="stay-sub">On the property</p>
+      <p>
+        Please park at the main parking lot on the West side of the river and make your way
+        over to the cabin area on foot. All cabins have a mix of bunk beds and single or
+        double rooms, and spots are available on a
+        <strong>first-come first-served</strong> basis.
+      </p>
+      <p>
+        Please bring bedding (twin size) or a sleeping bag, and maybe some earplugs!
+        +2 points for spotting Liisbet's name written in the back room of the girls' cabin!
+      </p>
+      <p class="cabin-spots" id="cabin-spots" style="display:none"><span id="cabin-count"></span> spots remaining</p>
+    </div>
+
+    <!-- RVs -->
+    <div class="stay-block">
+      <h3>RVs</h3>
+      <p class="stay-sub">On the property</p>
+      <p>
+        Please park RVs on the Eastern (right) side of the parking lot (see orange area with
+        dotted outline and RV "P" specification on the <a href="map.html">map</a>), and use
+        the sauna bathrooms.
+      </p>
+      <p>
+        We will be in contact with you regarding RV specific requirements you may have, as
+        we are currently exploring what we are able to provide regarding electrical power.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img
+    src="Images/Elements/pine-tree-forest-silhouette-16-705244249.png"
+    class="footer-treeline"
+    alt=""
+    aria-hidden="true"
+  />
+  <p class="footer-names">Tom & Liisbet</p>
+  <p class="footer-date">September 5, 2026 · Udora, Ontario</p>
+  <p class="footer-contact">Questions? <a href="mailto:tomandliisbet@gmail.com">tomandliisbet@gmail.com</a></p>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  // ── Cabin availability counter ──
+  (async function() {
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxyAY2trkEyjC4yZWXhyuJfK668TVKDH6NaBTty23KS1SUpY7tbZiFKpdoT5HwiWmPhuQ/exec';
+    try {
+      const res  = await fetch(SCRIPT_URL + '?action=cabin-count');
+      const data = await res.json();
+      if (typeof data.available === 'number') {
+        document.getElementById('cabin-count').textContent =
+          data.available + ' of ' + data.total;
+        // Only show the spot counter on or after July 5, 2026
+        const showDate = new Date('2026-07-05');
+        if (new Date() >= showDate) {
+          document.getElementById('cabin-spots').style.display = 'block';
+        }
+      }
+    } catch { /* silently fail — counter stays hidden */ }
+  })();
+</script>
+</body>
+</html>
