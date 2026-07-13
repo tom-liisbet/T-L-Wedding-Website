@@ -35,7 +35,10 @@ var CONFIG = {
   TEST_RECIPIENT: 'tomandliisbet@gmail.com',
 
   SITE_URL: 'https://tom-liisbet.github.io/T-L-Wedding-Website',
-  INVITE_IMAGE_URL: 'https://tom-liisbet.github.io/T-L-Wedding-Website/Images/Photos/Invite/Invite-email.jpg'
+  // NOTE: Gmail caches images per-URL in its proxy. If the invite image ever
+  // changes again, rename the file (v3, v4…) and update this URL — re-uploading
+  // under the same name won't show up in emails.
+  INVITE_IMAGE_URL: 'https://tom-liisbet.github.io/T-L-Wedding-Website/Images/Photos/Invite/Invite-email-v2.jpg'
 };
 
 // ── 1. DRY RUN ──────────────────────────────────────────────────────────────
